@@ -178,26 +178,30 @@ class _MyHomePageState extends State<Main> {
 
       body: SafeArea(
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: "Give your task...",
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: 80),
+                TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: "Give your task...",
+                  ),
+                  controller: _controller,
+                  onSubmitted: add,
                 ),
-                controller: _controller,
-                onSubmitted: add,
-              ),
-              SizedBox(height: 12),
-              Text(message1),
-              SizedBox(height: 24),
-              ElevatedButton(onPressed: activateRandomize, child: Text("Randomize!")),
-              SizedBox(height: 12),
-              ElevatedButton(onPressed: clearArray, child: Text("Clear list")),
-              SizedBox(height: 12),
-              Text(message2),
-            ],
+                SizedBox(height: 12),
+                Text(message1),
+                SizedBox(height: 24),
+                ElevatedButton(onPressed: activateRandomize, child: Text("Randomize!")),
+                SizedBox(height: 12),
+                ElevatedButton(onPressed: clearArray, child: Text("Clear list")),
+                SizedBox(height: 12),
+                Text(message2),
+                SizedBox(height: 80)
+              ],
+            )
           ),
         ),
       ),
