@@ -72,7 +72,7 @@ class _MyHomePageState extends State<Info> {
                 SizedBox(height: 8),
                 Text("Author: Dean"),
                 SizedBox(height: 8),
-                Text("Version: 1.0.0"),
+                Text("Version: 2.0.0"),
                 SizedBox(height: 24),
 
                 ElevatedButton(

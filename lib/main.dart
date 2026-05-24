@@ -183,14 +183,22 @@ class _MyHomePageState extends State<Main> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(height: 80),
-                TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: "Give your task...",
-                  ),
-                  controller: _controller,
-                  onSubmitted: add,
-                ),
+                Row(
+                  children: [
+                    SizedBox(width: 15),
+                    Expanded(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: "Give your task...",
+                        ),
+                        controller: _controller,
+                        onSubmitted: add,
+                      )
+                    ),  
+                    SizedBox(width: 15)
+                  ]  
+                ),  
                 SizedBox(height: 12),
                 Text(message1),
                 SizedBox(height: 24),
@@ -210,7 +218,7 @@ class _MyHomePageState extends State<Main> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("Version: 1.0.0"),
+            Text("Version: 2.0.0"),
 
             IconButton(
               onPressed: () {
