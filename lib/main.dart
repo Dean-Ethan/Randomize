@@ -95,6 +95,27 @@ class _MyHomePageState extends State<Main> {
         );
 
         break;
+      case "alreadyExists":
+        debugPrint("Error: This item already exists!");
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            duration: Duration(seconds: 3),
+            content: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(child: Text("This item already exists!")),
+                IconButton(
+                  icon: Icon(Icons.close, color: Colors.white),
+
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                  },
+                )
+              ]
+            ),
+          )
+        );
     }
   }
 
@@ -142,13 +163,20 @@ class _MyHomePageState extends State<Main> {
       return;
     }
 
+    // Delete this block if you don't want to be limited to adding only one entry.
+    if (items.contains(text.trim())) {
+      showError("alreadyExists");
+      _controller.clear();
+      return;
+    }
+
     if (message1 == "No items in array!") {
       message1 = "";
     }
 
     setState(() {
-      items.add(text);
-      message1 += "\n- $text";
+      items.add(text.trim());
+      message1 += "\n- ${text.trim()}";
       _controller.clear();
     });
   }
@@ -208,7 +236,7 @@ class _MyHomePageState extends State<Main> {
                       child: TextField(
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          hintText: "Give your task...",
+                          hintText: "Add an item...",
                         ),
                         controller: _controller,
                         onSubmitted: add,
