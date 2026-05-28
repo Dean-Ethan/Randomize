@@ -47,28 +47,88 @@ class _MyHomePageState extends State<Main> {
     });
   }
 
+  void showError(String error) {
+    switch (error) {
+      case "failedInput":
+        debugPrint("Error: You have to enter something!");
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            duration: Duration(seconds: 3),
+            content: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(child: Text('You have to enter something!')),
+                IconButton(
+                  icon: Icon(Icons.close, color: Colors.white),
+
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+
+        break;
+      case "failedRandomize":
+        debugPrint("Error: You must have added at least 2 tasks to randomize!");
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            duration: Duration(seconds: 3),
+            content: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(child: Text('You must have added at least 2 tasks to randomize!')),
+                IconButton(
+                  icon: Icon(Icons.close, color: Colors.white),
+
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+
+        break;
+    }
+  }
+
+  void showInfo(String info) {
+    switch (info) {
+      case "noItems":
+        debugPrint("Info: The array is empty!");
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            duration: Duration(seconds: 3),
+            content: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(child: Text('The list is empty.')),
+                IconButton(
+                  icon: Icon(Icons.close, color: Colors.white),
+
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+
+        break;
+    }
+  }
+
   void activateRandomize() {
     if (items.isEmpty || items.length == 1) {
-      debugPrint("Error: You must have added at least 2 tasks to randomize!");
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          duration: Duration(seconds: 3),
-          content: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(child: Text('You must have added at least 2 tasks to randomize!')),
-              IconButton(
-                icon: Icon(Icons.close, color: Colors.white),
-
-                onPressed: () {
-                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                },
-              ),
-            ],
-          ),
-        ),
-      );
+      showError("failedRandomize");
     } else {
       for (int i = 0; i < 3; i++) {
         randomize();
@@ -76,32 +136,9 @@ class _MyHomePageState extends State<Main> {
     }
   }
 
-  void failedInput() {
-    debugPrint("Error: You have to enter something!");
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        duration: Duration(seconds: 3),
-        content: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(child: Text('You have to enter something!')),
-            IconButton(
-              icon: Icon(Icons.close, color: Colors.white),
-
-              onPressed: () {
-                ScaffoldMessenger.of(context).hideCurrentSnackBar();
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   void add(String text) {
     if (text.trim().isEmpty) {
-      failedInput();
+      showError("failedInput");
       return;
     }
 
@@ -124,26 +161,7 @@ class _MyHomePageState extends State<Main> {
         message1 = "No items in array!";
       });
     } else {
-      debugPrint("Info: The array is empty!");
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          duration: Duration(seconds: 3),
-          content: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(child: Text('The list is empty.')),
-              IconButton(
-                icon: Icon(Icons.close, color: Colors.white),
-
-                onPressed: () {
-                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                },
-              ),
-            ],
-          ),
-        ),
-      );
+      showInfo("noItems");
     }
   }
 
